@@ -1,0 +1,110 @@
+{
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "Morango",
+      "preco": 8.5,
+       "img": "./img/imagens/morango.jpg"
+    
+      
+    },
+    {
+      "id": 2,
+      "nome": "Maçã",
+      "preco": 10.5,
+      "img":"./img/imagens/maca.jpg"
+     
+    },
+    {
+      "id": 3,
+      "nome": "Uva",
+      "preco": 12.5,
+      "img":"./img/imagens/uva.jpg"
+      
+    },
+    {
+      "id": 4,
+      "nome": "Abacaxi",
+      "preco": 14.5,
+      "img":"./img/imagens/abacaxi.jpg"
+    },
+    {
+      "id": 5,
+      "nome": "Pera",
+      "preco": 5.5,
+      "img":"./img/imagens/pera.jpg"
+      
+    },
+    {
+      "id": 6,
+      "nome": "Abacate",
+      "preco": 7.5,
+      "img":"./img/imagens/abacate.jpg"
+      
+    }
+    {
+      "id": 7,
+      "nome": "Kiwi",
+      "preco": 8.0,
+      "img":"./img/imagens/kiwi.jpg"
+      
+    }
+    {
+      "id": 8,
+      "nome": "Melancia",
+      "preco": 20.00,
+      "img":"./img/imagens/melancia.jpg"
+      
+    }
+    {
+      "id": 9,
+      "nome": "Ameixa",
+      "preco": 3.5,
+      "img":"./img/imagens/ameixa.jpg"
+      
+    }
+    {
+      "id": 10,
+      "nome": "Melão",
+      "preco": 6.5,
+      "img":"./img/imagens/melao.jpg"
+      
+    }
+    {
+      "id": 11,
+      "nome": "Alface",
+      "preco": 2.3,
+      "img":"./img/imagens/alface.jpg"
+      
+    }
+    {
+      "id": 12,
+      "nome": "Agrião",
+      "preco": 1.5,
+      "img":"./img/imagens/agriao.jpg"
+      
+    }
+    {
+      "id": 13,
+      "nome": "Couve-flor",
+      "preco": 7.0,
+      "img":"./img/imagens/couve.jpg"
+      
+    }
+    {
+      "id": 14,
+      "nome": "Coca cola 600ml",
+      "preco": 5.0,
+      "img":"./img/imagens/coca.jpg"
+      
+    }
+    {
+      "id": 15,
+      "nome": "Fanta Uva 600ml",
+      "preco": 5.0,
+      "img":"./img/imagens/fanta.jpg"
+      
+    }
+  ]
+  
+}
