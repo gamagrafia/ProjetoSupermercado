@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Supermercado Arbyte</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+  integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <link href="css/heroic-features.css" rel="stylesheet">
+  <script src="js.js"></script> 
+ 
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Supermercado ARBYTE</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Início
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Carrinho</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Entrega</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contato</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+      <h1 class="display-3">Bem vindo ao mercado ARBYTE!</h1>
+      <p class="lead">Aqui você encontra os melhores produtos da região!</p>
+      <a href="#" class="btn btn-primary btn-lg">Finalizar compra e ir até o carrinho!</a>
+    </header>
+
+    <!-- Page Features -->
+    <div class="row text-center">
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://conteudo.imguol.com.br/c/entretenimento/32/2018/01/18/maca-1516308281068_v2_1920x1279.jpg" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Maçã</h4>
+            <p class="card-text">A melhor maça da região</p>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <input id="precoMaca" type=text  style='width:50px' value='3.00' disabled>
+            </div>
+          </div>
+          <div class="card-footer">
+
+            <input id="quantidadeMaca" type="number">
+            <a href="#" class="btn btn-primary" id="comprarMaca">Comprar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="./img/laranja.jpg" alt="laranja">
+          <div class="card-body">
+            <h4 class="card-title">Laranja</h4>
+            <p class="card-text">A melhor laranja da região!</p>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <input id="precoLaranja" type=text  style='width:50px' value='2.30' disabled>
+            </div>
+          </div>
+          <div class="card-footer">
+            <input id="quantidadeLaranja" type="number">
+            <a href="#" class="btn btn-primary" id="comprarLaranja" >Comprar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="./img/UVA.jpg" alt="UVA">
+          <div class="card-body"> 
+            <h4 class="card-title">Uva</h4>
+            <p class="card-text">A melhor Uva da Região!</p>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <input id="precoUva" type=text  style='width:50px' value='5.00' disabled>
+            </div>
+          </div>
+          <div class="card-footer">
+            <input id="quantidadeUva" type="number">
+            <a href="#" class="btn btn-primary" id="comprarUva">Comprar</a>
+      
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="./img/morango.jpg" alt="UVA">
+          <div class="card-body">
+            <h4 class="card-title">Morango</h4>
+            <p class="card-text">O melhor morango da Região</p>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <input id="precoMorango" type=text  style='width:50px' value='4.00' disabled>
+            </div>
+          </div>
+          <div class="card-footer"> 
+            <input id="quantidadeMorango" type="number">
+            <a href="#" class="btn btn-primary" id="comprarMorango">Comprar</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.row -->
+    <div class="media" style="background-color: white; color: black; margin-bottom: 10 px;">
+      <img src="./img/carrinho.jpg" class="align-self-center mr-3" alt="...">
+      <div class="media-body">
+        <h3 class="mt-0">VALOR TOTAL DE COMPRA</h3>
+        <h3 id="h3Valor"></h3>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  
+
+</body>
+
+</html>

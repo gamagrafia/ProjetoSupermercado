@@ -1,0 +1,32 @@
+/*!
+ * Start Bootstrap - Heroic Features (https://startbootstrap.com/templates/heroic-features)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-heroic-features/blob/master/LICENSE)
+ */
+body {
+  background-color: #183770;
+}
+
+.row { 
+padding: 20px;
+background-color:#BD994D;  
+border-radius: 4px;
+margin-top: 50px;
+margin-bottom: 60px;
+}
+.nav{
+  background-color:#BD994D;
+}
+
+header.jumbotron.my-4{
+  margin-top: 50px!important;
+  background-color: #705823;
+}
+
+.bg-dark{
+  background-color:#FFC44F!important;
+}
+
+#idDoCampoQuantidade{
+  width: 60px;
+}
