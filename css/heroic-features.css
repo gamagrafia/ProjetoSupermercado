@@ -14,7 +14,7 @@ border-radius: 4px;
 margin-top: 50px;
 margin-bottom: 60px;
 }
-.nav{
+.navbar{
   background-color:#BD994D;
 }
 
@@ -30,3 +30,33 @@ header.jumbotron.my-4{
 #idDoCampoQuantidade{
   width: 60px;
 }
+
+.media{
+  background-color: rgb(255, 255, 255); 
+  color: black; 
+  margin-top: 50px
+
+} 
+
+footer.py-5{
+  padding: 10px !important;
+  background-color: #BD994D !important;
+  position: relative;
+}
+
+.btn.btn-primary{
+  margin-top: 10px;
+  text-align: center;
+}
+
+.precoProduto{
+  width: 60px;
+  text-align: center
+}
+
+.card-img-top {
+    flex-shrink: 0;
+  width: 100%;
+  height: 40%;
+}
+

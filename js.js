@@ -59,12 +59,11 @@ window.onload = function () {
                 <div class="card h-100" id="produto${produto.id}">
                 <img class="card-img-top" src="${produto.img}" alt="">
                 <div class="card-body">
-                    <h4 class="card-title">${produto.nome}</h4>
-                    <p class="card-text">A melhor maça da região</p>
+                    <h4 class="card-title">${produto.nome}</h4>                    
                 </div>
                 <div class="card">
                     <div class="card-body">
-                    <input class="precoProduto" type=number  style='width:50px' value='${produto.preco}' disabled>
+                    <input class="precoProduto" type=number  value='${produto.preco}' disabled>
                     </div>
                 </div>
                 <div class="card-footer">
