@@ -48,42 +48,57 @@ function clicarComprarProduto(idDoCampoPreco, idDoCampoQuantidade, nomeDoProduto
     colocarProdutoNoCarrinho(nomeDoProduto, valorDoProduto, quantidadeDoProduto)
 }
 
-// espero a página carregar
-// window é o BOM
-// onload é o evento onde a página
 window.onload = function () {
-    // document.getElementById recupera um elemento que tem o nome "botao"
-    document.getElementById("comprarMaca").addEventListener("click", () => {
-        let idDoCampoPreco = "precoMaca"
-        let idDoCampoQuantidade = "quantidadeMaca"
-        let nomeDoProduto = "Maca"
-        clicarComprarProduto("precoMaca", "quantidadeMaca", "Maçã")
-    })
 
-    document.getElementById("comprarLaranja").addEventListener("click", () => {
-        let idDoCampoPreco = "precoLaranja"
-        let idDoCampoQuantidade = "quantidadeLaranja"
-        let nomeDoProduto = "Laranja"
+    axios.get("http://localhost:3000/produtos")
+        .then(({ data }) => {
 
-        clicarComprarProduto(idDoCampoPreco, idDoCampoQuantidade, nomeDoProduto)
-    })
+            let cards = document.getElementById("cards")
+            data.forEach(produto => {
+                cards.innerHTML += `<div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100" id="produto${produto.id}">
+                <img class="card-img-top" src="${produto.img}" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">${produto.nome}</h4>
+                    <p class="card-text">A melhor maça da região</p>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                    <input class="precoProduto" type=number  style='width:50px' value='${produto.preco}' disabled>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <input class="quantidadeProduto" type="number">
+                    <a href="#" data-id="${produto.id}" class="btn btn-primary">Comprar</a>
+                </div>
+                </div>
+                </div>`
 
-    document.getElementById("comprarUva").addEventListener("click", () => {
-        let idDoCampoPreco = "precoUva"
-        let idDoCampoQuantidade = "quantidadeUva"
-        let nomeDoProduto = "Uva"
+            })
 
-        clicarComprarProduto(idDoCampoPreco, idDoCampoQuantidade, nomeDoProduto)
-    })
+            let botoes = document.querySelectorAll(".card .btn")
 
-    document.getElementById("comprarMorango").addEventListener("click", () => {
-        let idDoCampoPreco = "precoMorango"
-        let idDoCampoQuantidade = "quantidadeMorango"
-        let nomeDoProduto = "Morango"
+            botoes.forEach(botao => {
+                botao.addEventListener("click", (event) => {
+                    event.preventDefault()
+                    let id = botao.getAttribute("data-id")
+                    let produto = document.getElementById(`produto${id}`)
+                    let nomedoProduto = produto.querySelector(".card-title").textContent
+                    let valordoProduto = produto.querySelector(".precoProduto").value
+                    let quantidadedeProduto = produto.querySelector(".quantidadeProduto").value
+                    
+                    colocarProdutoNoCarrinho(nomedoProduto, valordoProduto, quantidadedeProduto)                  
 
-        clicarComprarProduto(idDoCampoPreco, idDoCampoQuantidade, nomeDoProduto)
-    })
+                })
+            })
+
+        })
 }
+
+
+
+
+
 
 
 
