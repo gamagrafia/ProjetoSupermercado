@@ -1,24 +1,35 @@
-let carrinho = [];
-class ProdutoNoCarrinho {
-    constructor(nome, preco, quantidade) {
-        this.nome = nome
-        this.preco = preco
-        this.quantidade = quantidade
+
+class Carrinho{
+    constructor(){
+        this.itensDoCarrinho = []
+    }
+    adicionarProdutoCarrinho(produto){
+        this.itensDoCarrinho.push(produto)
+        return produto
+    }
+    get listaProdutosdoCarrinho(){
+        return this.itensDoCarrinho
+    } 
+    get mostrarValorTotal(){
+        return this.itensDoCarrinho.map(item => item.total) 
+        
     }
 }
+let carrinho = new Carrinho()
 
-function colocarProdutoNoCarrinho(nomeProduto, valorDoProduto, quantidadeDoProduto) {
-    if (quantidadeDoProduto !== "") {
-        let produtoNoCarrinho = new ProdutoNoCarrinho(nomeProduto, valorDoProduto, quantidadeDoProduto)
-        carrinho.push(produtoNoCarrinho)
+// function colocarProdutoNoCarrinho(nomeProduto, valorDoProduto, quantidadeDoProduto) {
+//     if (quantidadeDoProduto !== "") {
+//         let produtoNoCarrinho = new ProdutoNoCarrinho(nomeProduto, valorDoProduto, quantidadeDoProduto)
+//         carrinho.push(produtoNoCarrinho)
 
-        console.log("Coloquei " + produtoNoCarrinho.quantidade + " " + produtoNoCarrinho.nome + "(s) no carrinho!")
-
-        calcularValorTotalDoCarrinho()
-    } else {
-        alert("Mas não queria o produto?")
-    }
-}
+//         console.log("Coloquei " + produtoNoCarrinho.quantidade + " " + produtoNoCarrinho.nome + "(s) no carrinho!")
+        
+//         adicionarLinhaNoCarrinho()
+//         calcularValorTotalDoCarrinho()
+//     } else {
+//         alert("Mas não queria o produto?")
+//     }
+// }
 
 function calcularValorTotalDoCarrinho() {
     let soma = 0
@@ -48,56 +59,80 @@ function clicarComprarProduto(idDoCampoPreco, idDoCampoQuantidade, nomeDoProduto
     colocarProdutoNoCarrinho(nomeDoProduto, valorDoProduto, quantidadeDoProduto)
 }
 
+//Criando Cadrs
+function criarCard(produtos){ 
+    let cards = document.getElementById("cards")
+    produtos.forEach(produto => {
+        cards.innerHTML += `<div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100" id="produto${produto.id}">
+        <img class="card-img-top" src="${produto.img}" alt="">
+        <div class="card-body">
+            <h4 class="card-title">${produto.nome}</h4>                    
+        </div>
+        <div class="card">
+            <div class="card-body">
+            <input class="precoProduto" type=number  value='${produto.preco}' disabled>
+            </div>
+        </div>
+        <div class="card-footer">
+            <input class="quantidadeProduto" type="number">
+            <a href="#" data-id="${produto.id}" class="btn btn-primary">Comprar</a>
+        </div>
+        </div>
+        </div>`
+    })
+}
+
+//Criando Linhas de Produtos no Carrinho
+function criarLinhaNoCarrinho(produto){ 
+    let listaProdutosCarrinho = document.querySelector("#listaProdutoNoCarrinho")
+            listaProdutosCarrinho.innerHTML +=
+            `<tr>
+            <td><img src="${produto.img}"></td>
+            <td>${produto.nome}</td>
+            <td>${produto.quantidade}</td>
+            <td>${produto.preco}</td>
+            <td>${produto.total}</td>
+            </tr> `
+    
+}
+
+//Adicionando Eventos nos Botões dos Cards
+function adicionarEventoNosBotoesDosCards(produtos){
+    let botoes = document.querySelectorAll(".card .btn")          
+
+    botoes.forEach(botao => {
+        botao.addEventListener("click", (event) => {
+            event.preventDefault()
+            let id = parseInt(botao.getAttribute("data-id"))
+            let produto = buscaProduto(id, produtos)    
+            
+            let quantidadedeProduto = parseInt(document.querySelector(`#produto${id} .quantidadeProduto`).value)
+            produto = carrinho.adicionarProdutoCarrinho({...produto, quantidade: quantidadedeProduto, total: quantidadedeProduto*produto.preco})
+            console.log(carrinho.listaProdutosdoCarrinho)
+            criarLinhaNoCarrinho(produto)
+        //     colocarProdutoNoCarrinho(nomedoProduto, valordoProduto, quantidadedeProduto)
+            console.log(carrinho.mostrarValorTotal)
+        
+        })
+    })
+}
+
+function buscaProduto(id, produtos){    
+    return produtos.find(produto => {
+        return produto.id === id
+    })
+}
+
 window.onload = function () {
 
     axios.get("http://localhost:3000/produtos")
         .then(({ data }) => {
-
-            let cards = document.getElementById("cards")
-            data.forEach(produto => {
-                cards.innerHTML += `<div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100" id="produto${produto.id}">
-                <img class="card-img-top" src="${produto.img}" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">${produto.nome}</h4>                    
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                    <input class="precoProduto" type=number  value='${produto.preco}' disabled>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <input class="quantidadeProduto" type="number">
-                    <a href="#" data-id="${produto.id}" class="btn btn-primary">Comprar</a>
-                </div>
-                </div>
-                </div>`
-
-            })
-
-            let botoes = document.querySelectorAll(".card .btn")
-
-            botoes.forEach(botao => {
-                botao.addEventListener("click", (event) => {
-                    event.preventDefault()
-                    let id = botao.getAttribute("data-id")
-                    let produto = document.getElementById(`produto${id}`)
-                    let nomedoProduto = produto.querySelector(".card-title").textContent
-                    let valordoProduto = produto.querySelector(".precoProduto").value
-                    let quantidadedeProduto = produto.querySelector(".quantidadeProduto").value
-                    
-                    colocarProdutoNoCarrinho(nomedoProduto, valordoProduto, quantidadedeProduto)                  
-
-                })
-            })
+            
+            criarCard(data)
+            adicionarEventoNosBotoesDosCards(data)
 
         })
+
 }
-
-
-
-
-
-
-
 

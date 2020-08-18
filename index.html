@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
   <meta charset="utf-8">
@@ -11,17 +12,20 @@
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-  integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
   <link href="css/heroic-features.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="js.js"></script> 
- 
+  <script src="js.js"></script>
+
 </head>
 
 <body>
@@ -30,7 +34,8 @@
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#">Supermercado ARBYTE</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -41,7 +46,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Carrinho</a>
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#siteModal">Carrinho</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Entrega</a>
@@ -61,22 +66,15 @@
     <header class="jumbotron my-4">
       <h1 class="display-3">Bem vindo ao mercado ARBYTE!</h1>
       <p class="lead">Aqui você encontra os melhores produtos da região!</p>
-      
+
     </header>
 
     <!-- Cards dos produtos  -->
     <div id='cards' class="row text-center">
-    
+
     </div>
     <!-- /.row -->
-    <div class="media">
-      <img src="./img/carrinho.jpg" class="align-self-center mr-3" alt="...">
-      <div class="media-body">
-        <h3 class="mt-0">VALOR TOTAL DE COMPRA</h3>
-        <h3 id="h3Valor"></h3>
-        <a href="#" class="btn btn-primary btn-lg">Finalizar compra e ir até o carrinho!</a>
-      </div>
-    </div>=.
+
   </div>
   <!-- /.container -->
 
@@ -89,8 +87,53 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  
-
+  <!-- Modal -->
+  <div class="modal fade" id="siteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div classs="modal-header">
+          <h3 class="modal-title">Seu Carrinho</h3>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row col-12" id="conteudoModal">
+              <!-- Carrinho -->
+              <div class="media">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">First</th>
+                      <th scope="col">Last</th>
+                      <th scope="col">Handle</th>
+                      <th scope="col">Handle</th>
+                    </tr>
+                  </thead>
+                  <tbody id="listaProdutoNoCarrinho">
+                                
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div>
+              <h4 class="mt-0">VALOR TOTAL DA COMPRA:</h4>
+              <h3 id="h3Valor">0,00</h3>
+            </div>
+            <button type="button" id="continuarcomprando" class="btn btn-secondary" data-dismiss="modal">Continuar
+              Comprando</button>
+            <button type="button" id="finalizarcompra" class="btn btn-primary">Finalizar Compra</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.Modal -->
+  <!-- /.Carrinho -->
 </body>
 
 </html>
