@@ -92,7 +92,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div classs="modal-header">
-          <h3 class="modal-title">Seu Carrinho</h3>
+          <h3 class="modal-title">Meu Carrinho</h3>
           <button type="button" class="close" data-dismiss="modal">
             <span>&times;</span>
           </button>
@@ -105,11 +105,12 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">First</th>
-                      <th scope="col">Last</th>
-                      <th scope="col">Handle</th>
-                      <th scope="col">Handle</th>
+                      <th scope="col"></th>
+                      <th scope="col">Produto</th>
+                      <th scope="col">Quantidade</th>
+                      <th scope="col">Valor Uni.</th>
+                      <th scope="col" class="valorTotalProduto">Valor Total</th>
+                      <th scope="col">Ações</th>
                     </tr>
                   </thead>
                   <tbody id="listaProdutoNoCarrinho">
@@ -122,7 +123,7 @@
           <div class="modal-footer">
             <div>
               <h4 class="mt-0">VALOR TOTAL DA COMPRA:</h4>
-              <h3 id="h3Valor">0,00</h3>
+              <h3 id="h3Valor" col>0,00</h3>
             </div>
             <button type="button" id="continuarcomprando" class="btn btn-secondary" data-dismiss="modal">Continuar
               Comprando</button>
