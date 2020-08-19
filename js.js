@@ -8,9 +8,8 @@ class Carrinho{
         return produto
     }
     // removerProdutoCarrinho(produtoid){
-        
     // }
-
+    
     get listaProdutosdoCarrinho(){
         return this.itensDoCarrinho
     } 
@@ -95,7 +94,7 @@ function criarCard(produtos){
         </div>
         <div class="card-footer">
             <input class="quantidadeProduto" type="number" min="1">
-            <a href="#" data-id="${produto.id}" class="btn btn-primary">Comprar</a>
+            <a href="#" data-id="${produto.id}" class="btn btn-primary">Adicionar ao Carrinho</a>
         </div>
         </div>
         </div>`
@@ -125,6 +124,7 @@ function atualizarLinhaNoCarrinho(produto){
     valorTotalEl.textContent = produto.total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
 
 }
+
 
 //Adicionando Eventos nos Botões dos Cards
 function adicionarEventoNosBotoesDosCards(produtos){
@@ -168,6 +168,7 @@ function buscaProduto(id, produtos){
     })
 }
 
+//Chamando a API
 window.onload = function () {
 
     axios.get("http://localhost:3000/produtos")
