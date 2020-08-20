@@ -14,78 +14,36 @@ class Carrinho {
             total: produto.total
         })
     }
-    excluirProdutoCarrinho(produto){
-        axios.delete(`http://localhost:3000/carrinho/${produto.id}`)
+
+    excluirProdutoCarrinho(id) {
+        let chave = 0;
+        this.itensDoCarrinho.find((produto, index) => {
+            chave = index;
+            return produto.id === id;
+        });
+
+        this.itensDoCarrinho.splice(chave, 1);
+        atualizarValorTotal();
+
+        axios.delete(`http://localhost:3000/carrinho/${id}`);
     }
 
     get listaProdutosdoCarrinho() {
         return this.itensDoCarrinho
     }
     get calculaValorTotal() {
-        return this.itensDoCarrinho.map(item => item.total).reduce((total, valor) => total + valor)
+        return this.itensDoCarrinho.length > 0 ? this.itensDoCarrinho.map(item => item.total).reduce((total, valor) => total + valor) : 0;
     }
 
 }
 let carrinho = new Carrinho()
-
-// let numeros = [1, 3, 6, 20, 45, 33]
-// let chave;
-// let resultado = numeros.find((numero, index, array) => {
-//     chave = index;
-//     return numero >= 18;
-// })
-
-// console.log(numeros.splice(chave, 1));
-// console.log(numeros)
 
 function atualizarValorTotal() {
     let h3Valor = document.getElementById("h3Valor")
     h3Valor.textContent = carrinho.calculaValorTotal.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 }
 
-// function colocarProdutoNoCarrinho(nomeProduto, valorDoProduto, quantidadeDoProduto) {
-//     if (quantidadeDoProduto !== "") {
-//         let produtoNoCarrinho = new ProdutoNoCarrinho(nomeProduto, valorDoProduto, quantidadeDoProduto)
-//         carrinho.push(produtoNoCarrinho)
-
-//         console.log("Coloquei " + produtoNoCarrinho.quantidade + " " + produtoNoCarrinho.nome + "(s) no carrinho!")
-
-//         adicionarLinhaNoCarrinho()
-//         calcularValorTotalDoCarrinho()
-//     } else {
-//         alert("Mas não queria o produto?")
-//     }
-// }
-
-// function calcularValorTotalDoCarrinho() {
-//     let soma = 0
-
-//     for (let i = 0; i < carrinho.length; i++) {
-//         let produtoNoEspacoAtualNoCarrinho = carrinho[i]
-//         // a gente só tá calculando o preço X quantidade daquele produto no carrinho
-//         let valorTotalDoProdutoAtual = produtoNoEspacoAtualNoCarrinho.preco * produtoNoEspacoAtualNoCarrinho.quantidade
-
-//         soma = soma + valorTotalDoProdutoAtual
-//     }
-
-//     console.log("O valor total do carrinho é de R$ " + soma)
-//     // let inputOndeFicaValorTotalDoCarrinho = document.getElementById("valorTotalDoCarrinho")
-//     let h3Valor = document.getElementById("h3Valor")
-
-//     // inputOndeFicaValorTotalDoCarrinho.value = soma
-//     // toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }); serve pra formatar o número em dinheiro
-//     h3Valor.innerHTML = soma.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-// }
-
-// function clicarComprarProduto(idDoCampoPreco, idDoCampoQuantidade, nomeDoProduto) {
-//     let inputComPreco = document.getElementById(idDoCampoPreco)
-//     let valorDoProduto = inputComPreco.value // onde fica que a maçã custa R$ 2,30
-//     let quantidadeDoProduto = document.getElementById(idDoCampoQuantidade).value // aqui é onde o usuário diz quantas quer
-
-//     colocarProdutoNoCarrinho(nomeDoProduto, valorDoProduto, quantidadeDoProduto)
-// }
-
-//Criando Cadrs
+//Criando Cards
 function criarCard(produtos) {
     let cards = document.getElementById("cards")
     produtos.forEach(produto => {
@@ -119,16 +77,26 @@ function criarLinhaNoCarrinho(produto) {
             <td class="produtoQuantidade">${produto.quantidade}</td>
             <td>${produto.preco}</td>
             <td class="produtoValorTotal">${produto.total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</td>
-            <td><button class="btn-Remover" id="excluir${produto.id}">Excluir</buttton></td>
-            </tr> `
-    
-            //Pedro deu essa idéia
-    document.getElementById(`excluir${produto.id}`).addEventListener('click', () => {
-    
-        console.log("FOI")
-    })
+            <td><button onclick="adicionaEventoBotao(${produto.id})" class="btn-Remover">Excluir</buttton></td>
+        </tr> `
 }
 
+function adicionaEventoBotao(id) {
+        document.getElementById(`produtoCarrinho${id}`).remove();
+        carrinho.excluirProdutoCarrinho(id);
+    
+}
+
+function carregaProdutosCarrinho() {
+    // 1 - Fazer solicitação no axios do carrinho.
+
+    // 2 - Verificar se há itens no carrinho (.length do resultado do axios [res.data]).
+
+    // 2.1 - Se tiver itens no carrinho, chamar função criarLinhaNoCarrinho(produto), para cada produto no carrinho, ou seja, um forEach do res.data do axios.
+
+    // 2.2 - Se não  tiver itens, vida que segue, não precisa de else.
+
+}
 
 function atualizarLinhaNoCarrinho(produto) {
     let produtoNoCarrinhoEl = document.getElementById(`produtoCarrinho${produto.id}`)
@@ -207,11 +175,7 @@ function atualizarLinhaNoCarrinho(produto) {
 
                 criarCard(data)
                 adicionarEventoNosBotoesDosCards(data)
+                // Aqui ele deverá carregar os produtos no carrinho se tiver itens (carregaProdutosCarrinho())
 
             })
     }
-
-
-
-
-    
