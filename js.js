@@ -178,4 +178,11 @@ function atualizarLinhaNoCarrinho(produto) {
                 // Aqui ele deverá carregar os produtos no carrinho se tiver itens (carregaProdutosCarrinho())
 
             })
+            let cep= document.getElementById("inputZip").textContent
+
+            axios.get(`https://api.postmon.com.br/v1/cep/${cep}"`)
+            .then(({data}) =>{
+            let cidade1= document.getElementById("inputCity")
+            cidade1.textContent= data.cidade
+            }) 
     }
