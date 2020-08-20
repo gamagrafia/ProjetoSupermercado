@@ -1,22 +1,30 @@
 
-class Carrinho{
-    constructor(){
+class Carrinho {
+    constructor() {
         this.itensDoCarrinho = []
     }
-    adicionarProdutoCarrinho(produto){
+    adicionarProdutoCarrinho(produto) {
+        axios.post("http://localhost:3000/carrinho",produto)
         this.itensDoCarrinho.push(produto)
         return produto
     }
-    // removerProdutoCarrinho(produtoid){
-    // }
-    
-    get listaProdutosdoCarrinho(){
+    atualizarProdutoCarrinho(produto){
+        axios.patch(`http://localhost:3000/carrinho/${produto.id}`, {
+            quantidade: produto.quantidade, 
+            total: produto.total
+        })
+    }
+    excluirProdutoCarrinho(produto){
+        axios.delete(`http://localhost:3000/carrinho/${produto.id}`)
+    }
+
+    get listaProdutosdoCarrinho() {
         return this.itensDoCarrinho
-    } 
-    get calculaValorTotal(){
+    }
+    get calculaValorTotal() {
         return this.itensDoCarrinho.map(item => item.total).reduce((total, valor) => total + valor)
     }
-    
+
 }
 let carrinho = new Carrinho()
 
@@ -30,7 +38,7 @@ let carrinho = new Carrinho()
 // console.log(numeros.splice(chave, 1));
 // console.log(numeros)
 
-function atualizarValorTotal(){
+function atualizarValorTotal() {
     let h3Valor = document.getElementById("h3Valor")
     h3Valor.textContent = carrinho.calculaValorTotal.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 }
@@ -41,7 +49,7 @@ function atualizarValorTotal(){
 //         carrinho.push(produtoNoCarrinho)
 
 //         console.log("Coloquei " + produtoNoCarrinho.quantidade + " " + produtoNoCarrinho.nome + "(s) no carrinho!")
-        
+
 //         adicionarLinhaNoCarrinho()
 //         calcularValorTotalDoCarrinho()
 //     } else {
@@ -78,7 +86,7 @@ function atualizarValorTotal(){
 // }
 
 //Criando Cadrs
-function criarCard(produtos){ 
+function criarCard(produtos) {
     let cards = document.getElementById("cards")
     produtos.forEach(produto => {
         cards.innerHTML += `<div class="col-lg-3 col-md-6 mb-4">
@@ -102,82 +110,108 @@ function criarCard(produtos){
 }
 
 //Criando Linhas de Produtos no Carrinho
-function criarLinhaNoCarrinho(produto){ 
+function criarLinhaNoCarrinho(produto) {
     let listaProdutosCarrinho = document.querySelector("#listaProdutoNoCarrinho")
-            listaProdutosCarrinho.innerHTML +=
-            `<tr id="produtoCarrinho${produto.id}">
+    listaProdutosCarrinho.innerHTML +=
+        `<tr id="produtoCarrinho${produto.id}">
             <td><img src="${produto.img}" class="imgTabela"></td>
             <td>${produto.nome}</td>
             <td class="produtoQuantidade">${produto.quantidade}</td>
             <td>${produto.preco}</td>
             <td class="produtoValorTotal">${produto.total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</td>
-            <td><button class="btn-Remover" "data-id="${produto.id}">Excluir</buttton></td>
+            <td><button class="btn-Remover" id="excluir${produto.id}">Excluir</buttton></td>
             </tr> `
     
+            //Pedro deu essa idéia
+    document.getElementById(`excluir${produto.id}`).addEventListener('click', () => {
+    
+        console.log("FOI")
+    })
 }
-function atualizarLinhaNoCarrinho(produto){
+
+
+function atualizarLinhaNoCarrinho(produto) {
     let produtoNoCarrinhoEl = document.getElementById(`produtoCarrinho${produto.id}`)
     let quantidadeEl = produtoNoCarrinhoEl.querySelector(".produtoQuantidade")
     let valorTotalEl = produtoNoCarrinhoEl.querySelector(".produtoValorTotal")
     //textContent (serve para mudar apenas o texto no html)
     quantidadeEl.textContent = produto.quantidade
     valorTotalEl.textContent = produto.total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
-
+    carrinho.atualizarProdutoCarrinho(produto)
 }
 
+// tentando fazer com que remova o item usando o SPLICE
+// function excluirProdutoCarrinho(produtos) {
+//     let botoes = document.querySelector(".btn-Remover")
 
-//Adicionando Eventos nos Botões dos Cards
-function adicionarEventoNosBotoesDosCards(produtos){
-    let botoes = document.querySelectorAll(".card .btn")          
+//     botoes.forEach(botao => {
+//         botao.addEventListener("click", (event) => {
+//             event.preventDefault()
+//             let id = botao.getAttribute("data-id")
+//             let produto = buscaProduto(id, produtos)
+//             if (produto.id === id) {
+//                 console.log("Foi")
+//             }
+//         })
+//     })
+// }
+// excluirProdutoCarrinho()
 
-    botoes.forEach(botao => {
-        botao.addEventListener("click", (event) => {
-            event.preventDefault()
-            let id = parseInt(botao.getAttribute("data-id"))
-            let produto = buscaProduto(id, produtos)    
-            
-            let quantidadedeProduto = parseInt(document.querySelector(`#produto${id} .quantidadeProduto`).value)
-            if(quantidadedeProduto > 0){
-                if(carrinho.itensDoCarrinho.length > 0){
-                    let produtoComMesmoId = carrinho.itensDoCarrinho.find(itemDoCarrinho => itemDoCarrinho.id === produto.id)
-                        
-                        if(produtoComMesmoId){
+    //Adicionando Eventos nos Botões dos Cards
+    function adicionarEventoNosBotoesDosCards(produtos) {
+        let botoes = document.querySelectorAll(".card .btn")
+
+        botoes.forEach(botao => {
+            botao.addEventListener("click", (event) => {
+                event.preventDefault()
+                let id = parseInt(botao.getAttribute("data-id"))
+                let produto = buscaProduto(id, produtos)
+
+                let quantidadedeProduto = parseInt(document.querySelector(`#produto${id} .quantidadeProduto`).value)
+                if (quantidadedeProduto > 0) {
+                    if (carrinho.itensDoCarrinho.length > 0) {
+                        let produtoComMesmoId = carrinho.itensDoCarrinho.find(itemDoCarrinho => itemDoCarrinho.id === produto.id)
+
+                        if (produtoComMesmoId) {
                             produtoComMesmoId.quantidade += quantidadedeProduto
                             produtoComMesmoId.total = produtoComMesmoId.preco * produtoComMesmoId.quantidade
                             atualizarLinhaNoCarrinho(produtoComMesmoId)
-                        }else{
-                            produto = carrinho.adicionarProdutoCarrinho({...produto, quantidade: quantidadedeProduto, total: quantidadedeProduto*produto.preco})                    
+                        } else {
+                            produto = carrinho.adicionarProdutoCarrinho({ ...produto, quantidade: quantidadedeProduto, total: quantidadedeProduto * produto.preco })
                             criarLinhaNoCarrinho(produto)
                         }
-                }else{
-                    produto = carrinho.adicionarProdutoCarrinho({...produto, quantidade: quantidadedeProduto, total: quantidadedeProduto*produto.preco})                    
-                    criarLinhaNoCarrinho(produto)
+                    } else {
+                        produto = carrinho.adicionarProdutoCarrinho({ ...produto, quantidade: quantidadedeProduto, total: quantidadedeProduto * produto.preco })
+                        criarLinhaNoCarrinho(produto)
+                    }
+                    atualizarValorTotal()
+                } else {
+                    alert(`Por favor preencha uma quantidade valida do produto ${produto.nome}`)
                 }
-                atualizarValorTotal()
-            }else{
-                alert(`Por favor preencha uma quantidade valida do produto ${produto.nome}`)
-            }         
-                        
+
+            })
         })
-    })
-}
+    }
 
-function buscaProduto(id, produtos){    
-    return produtos.find(produto => {
-        return produto.id === id
-    })
-}
-
-//Chamando a API
-window.onload = function () {
-
-    axios.get("http://localhost:3000/produtos")
-        .then(({ data }) => {
-            
-            criarCard(data)
-            adicionarEventoNosBotoesDosCards(data)
-
+    function buscaProduto(id, produtos) {
+        return produtos.find(produto => {
+            return produto.id === id
         })
+    }
 
-}
+    //Chamando a API
+    window.onload = function () {
 
+        axios.get("http://localhost:3000/produtos")
+            .then(({ data }) => {
+
+                criarCard(data)
+                adicionarEventoNosBotoesDosCards(data)
+
+            })
+    }
+
+
+
+
+    
